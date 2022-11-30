@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_bloc_ecommerce_admin/pages/pages.dart';
 import 'package:get/get.dart';
+
+import '../pages/pages.dart';
 
 class HomePage extends StatelessWidget {
   static const id = '/home';
@@ -23,7 +24,7 @@ class HomePage extends StatelessWidget {
               height: 150,
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: InkWell(
-                onTap: () => Get.to(() => const ProductPage()),
+                onTap: () => Get.to(() => ProductPage()),
                 child: const Card(
                   child: Center(child: Text('Go to Products')),
                 ),
