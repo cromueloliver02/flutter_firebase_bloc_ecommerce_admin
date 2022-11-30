@@ -4,14 +4,15 @@ import '../models/models.dart';
 
 class ProductCardSlider extends StatelessWidget {
   const ProductCardSlider({
-    Key? key,
+    super.key,
     required this.index,
     required this.product,
     required this.title,
     required this.value,
     required this.label,
     required this.onChanged,
-  }) : super(key: key);
+    required this.onChangeEnd,
+  });
 
   final int index;
   final Product product;
@@ -19,6 +20,7 @@ class ProductCardSlider extends StatelessWidget {
   final double value;
   final String label;
   final void Function(double)? onChanged;
+  final void Function(double)? onChangeEnd;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +46,7 @@ class ProductCardSlider extends StatelessWidget {
             activeColor: Colors.black,
             inactiveColor: Colors.black12,
             onChanged: onChanged,
+            onChangeEnd: onChangeEnd,
           ),
         ),
         Text(

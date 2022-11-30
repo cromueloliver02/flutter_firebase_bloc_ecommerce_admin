@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_bloc_ecommerce_admin/pages/pages.dart';
 import 'package:get/get.dart';
 
 import '../controllers/controllers.dart';
 import '../widgets/widgets.dart';
+import '../pages/pages.dart';
 
 class ProductPage extends StatelessWidget {
   static const id = '/products';
@@ -31,7 +31,7 @@ class ProductPage extends StatelessWidget {
                 child: Row(
                   children: [
                     IconButton(
-                      onPressed: () => Get.to(() => AddProductPage()),
+                      onPressed: () => Get.to(() => const AddProductPage()),
                       iconSize: 30,
                       color: Colors.white,
                       icon: const Icon(Icons.add_circle),
@@ -49,10 +49,10 @@ class ProductPage extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: productController.products.length,
-                itemBuilder: (ctx, idx) => Obx(
-                  () => SizedBox(
+              child: Obx(
+                () => ListView.builder(
+                  itemCount: productController.products.length,
+                  itemBuilder: (ctx, idx) => SizedBox(
                     height: 210,
                     child: ProductCard(
                       index: idx,

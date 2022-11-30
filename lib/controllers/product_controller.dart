@@ -1,11 +1,20 @@
+import 'package:flutter_firebase_bloc_ecommerce_admin/services/services.dart';
 import 'package:get/get.dart';
 
 import '../models/models.dart';
 
 class ProductController extends GetxController {
-  List<Product> products = Product.products.obs;
+  final DatabaseService database = DatabaseService();
+
+  var products = <Product>[].obs;
 
   var newProduct = {}.obs;
+
+  @override
+  void onInit() {
+    products.bindStream(database.getProducts());
+    super.onInit();
+  }
 
   get price => newProduct['price'];
   get quantity => newProduct['quantity'];
@@ -19,6 +28,14 @@ class ProductController extends GetxController {
   }) {
     product.price = value;
     products[index] = product;
+  }
+
+  void saveNewProductPrice(Product product, String field, double value) {
+    database.updateField(product, field, value);
+  }
+
+  void saveNewProductQuantity(Product product, String field, int value) {
+    database.updateField(product, field, value);
   }
 
   void updateProductQuantity({

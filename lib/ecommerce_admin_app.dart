@@ -21,7 +21,7 @@ class EcommerceAdminApp extends StatelessWidget {
         ),
         GetPage(
           name: AddProductPage.id,
-          page: () => AddProductPage(),
+          page: () => const AddProductPage(),
         ),
       ],
     );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../models/models.dart';
 import '../controllers/controllers.dart';
+import '../models/models.dart';
 import 'widgets.dart';
 
 class ProductCard extends StatelessWidget {
@@ -63,6 +63,13 @@ class ProductCard extends StatelessWidget {
                         value: value,
                       );
                     },
+                    onChangeEnd: (value) {
+                      productController.saveNewProductPrice(
+                        product,
+                        'price',
+                        value,
+                      );
+                    },
                   ),
                   ProductCardSlider(
                     index: index,
@@ -75,6 +82,13 @@ class ProductCard extends StatelessWidget {
                         index: index,
                         product: product,
                         value: value.toInt(),
+                      );
+                    },
+                    onChangeEnd: (value) {
+                      productController.saveNewProductQuantity(
+                        product,
+                        'quantity',
+                        value.toInt(),
                       );
                     },
                   ),

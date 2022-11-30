@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_bloc_ecommerce_admin/models/product_model.dart';
+import 'package:flutter_firebase_bloc_ecommerce_admin/services/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:flutter_firebase_bloc_ecommerce_admin/controllers/controllers.dart';
-
+import '../controllers/controllers.dart';
 import '../widgets/widgets.dart';
 import 'pages.dart';
 
-class AddProductPage extends StatelessWidget {
+class AddProductPage extends StatefulWidget {
   static const id = '${ProductPage.id}/add';
 
-  AddProductPage({super.key});
+  const AddProductPage({super.key});
 
+  @override
+  State<AddProductPage> createState() => _AddProductPageState();
+}
+
+class _AddProductPageState extends State<AddProductPage> {
   final ProductController productController = Get.find();
+  final StorageService storage = StorageService();
+  final DatabaseService database = DatabaseService();
+  XFile? _pickedImage;
 
   void _pickImage(BuildContext ctx) async {
     final scaffoldMessenger = ScaffoldMessenger.of(ctx);
@@ -27,7 +36,42 @@ class AddProductPage extends StatelessWidget {
         );
     }
 
-    if (image != null) {}
+    if (image != null) _pickedImage = image;
+  }
+
+  void _addProduct() async {
+    if (_pickedImage == null) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          const SnackBar(content: Text('You haven\'t picked an image yet')),
+        );
+      return;
+    }
+
+    await storage.uploadImage(_pickedImage!);
+
+    final downloadUrl = await storage.getDownloadUrl(_pickedImage!.name);
+
+    productController.newProduct.update(
+      'imageUrl',
+      (value) => downloadUrl,
+      ifAbsent: () => downloadUrl,
+    );
+
+    final newProduct = productController.newProduct;
+
+    await database.addProduct(Product(
+      id: newProduct['id'],
+      name: newProduct['name'],
+      category: newProduct['category'],
+      description: newProduct['description'],
+      imageUrl: newProduct['imageUrl'],
+      isRecommended: newProduct['isRecommended'] ?? false,
+      isPopular: newProduct['isPopular'] ?? false,
+      price: newProduct['price'],
+      quantity: (newProduct['quantity']).toInt(),
+    ));
   }
 
   @override
@@ -124,9 +168,7 @@ class AddProductPage extends StatelessWidget {
               ),
               Center(
                 child: ElevatedButton(
-                  onPressed: () {
-                    print(productController.newProduct);
-                  },
+                  onPressed: _addProduct,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                   ),
