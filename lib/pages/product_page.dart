@@ -27,10 +27,11 @@ class ProductPage extends StatelessWidget {
               height: 100,
               child: Card(
                 color: Colors.black,
+                margin: EdgeInsets.zero,
                 child: Row(
                   children: [
                     IconButton(
-                      onPressed: () => Get.to(() => const AddProductPage()),
+                      onPressed: () => Get.to(() => AddProductPage()),
                       iconSize: 30,
                       color: Colors.white,
                       icon: const Icon(Icons.add_circle),
