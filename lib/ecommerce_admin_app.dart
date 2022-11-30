@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'pages/pages.dart';
 
@@ -7,12 +8,18 @@ class EcommerceAdminApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Ecommerce Admin App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: const HomePage(),
+      getPages: [
+        GetPage(
+          name: ProductPage.id,
+          page: () => const ProductPage(),
+        ),
+      ],
     );
   }
 }
