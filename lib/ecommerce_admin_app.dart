@@ -23,6 +23,10 @@ class EcommerceAdminApp extends StatelessWidget {
           name: AddProductPage.id,
           page: () => const AddProductPage(),
         ),
+        GetPage(
+          name: OrdersPage.id,
+          page: () => const OrdersPage(),
+        ),
       ],
     );
   }

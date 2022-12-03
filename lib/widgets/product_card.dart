@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../controllers/controllers.dart';
 import '../models/models.dart';
-import 'widgets.dart';
+import './widgets.dart';
 
 class ProductCard extends StatelessWidget {
   ProductCard({

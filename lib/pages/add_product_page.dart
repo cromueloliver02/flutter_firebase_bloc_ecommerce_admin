@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_bloc_ecommerce_admin/models/product_model.dart';
-import 'package:flutter_firebase_bloc_ecommerce_admin/services/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../models/product_model.dart';
 import '../controllers/controllers.dart';
-import '../widgets/widgets.dart';
-import 'pages.dart';
+import '../services/services.dart';
+import './pages.dart';
 
 class AddProductPage extends StatefulWidget {
   static const id = '${ProductPage.id}/add';

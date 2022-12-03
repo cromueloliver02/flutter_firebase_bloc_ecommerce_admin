@@ -1,7 +1,7 @@
-import 'package:flutter_firebase_bloc_ecommerce_admin/services/services.dart';
 import 'package:get/get.dart';
 
 import '../models/models.dart';
+import '../services/services.dart';
 
 class ProductController extends GetxController {
   final DatabaseService database = DatabaseService();
