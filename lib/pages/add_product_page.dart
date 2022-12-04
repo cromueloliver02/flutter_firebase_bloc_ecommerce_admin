@@ -63,7 +63,6 @@ class _AddProductPageState extends State<AddProductPage> {
     final newProduct = productController.newProduct;
 
     await database.addProduct(Product(
-      // id: newProduct['id'],
       name: newProduct['name'],
       category: newProduct['category'],
       description: newProduct['description'],
@@ -122,11 +121,6 @@ class _AddProductPageState extends State<AddProductPage> {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
-              ),
-              ProductTextField(
-                hintText: 'Product ID',
-                name: 'id',
-                productController: productController,
               ),
               ProductTextField(
                 hintText: 'Product Name',
