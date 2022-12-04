@@ -39,7 +39,7 @@ class DatabaseService {
   }
 
   Future<void> addProduct(model.Product product) {
-    return firestore.collection('products').add(product.toMap());
+    return firestore.collection('products').doc().set(product.toMap());
   }
 
   Future<void> updateField(
@@ -49,10 +49,10 @@ class DatabaseService {
   ) {
     return firestore
         .collection('products')
-        .where('id', isEqualTo: product.id)
+        .doc(product.id)
         .get()
         .then((querySnapshot) => {
-              querySnapshot.docs.first.reference.update({field: newValue})
+              querySnapshot.reference.update({field: newValue})
             });
   }
 

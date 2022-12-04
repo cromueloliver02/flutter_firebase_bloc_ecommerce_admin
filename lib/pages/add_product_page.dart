@@ -63,7 +63,7 @@ class _AddProductPageState extends State<AddProductPage> {
     final newProduct = productController.newProduct;
 
     await database.addProduct(Product(
-      id: newProduct['id'],
+      // id: newProduct['id'],
       name: newProduct['name'],
       category: newProduct['category'],
       description: newProduct['description'],
