@@ -39,6 +39,8 @@ class _AddProductPageState extends State<AddProductPage> {
   }
 
   void _addProduct() async {
+    final navigator = Navigator.of(context);
+
     if (_pickedImage == null) {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
@@ -71,6 +73,8 @@ class _AddProductPageState extends State<AddProductPage> {
       price: newProduct['price'],
       quantity: (newProduct['quantity']).toInt(),
     ));
+
+    navigator.pop();
   }
 
   @override
