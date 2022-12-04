@@ -30,8 +30,8 @@ class ProductController extends GetxController {
     products[index] = product;
   }
 
-  void saveNewProductPrice(Product product, String field, double value) {
-    database.updateField(product, field, value);
+  void saveNewProductPrice(Product product, String field, double value) async {
+    await database.updateField(product, field, value);
   }
 
   void saveNewProductQuantity(Product product, String field, int value) {

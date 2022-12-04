@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
               height: 150,
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: InkWell(
-                onTap: () => Get.to(() => const OrdersPage()),
+                onTap: () => Get.to(() => OrdersPage()),
                 child: const Card(
                   child: Center(child: Text('Go to Orders')),
                 ),

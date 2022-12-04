@@ -87,14 +87,14 @@ class Product extends Equatable {
     return result;
   }
 
-  factory Product.fromSnapshot(DocumentSnapshot snap) {
-    final map = snap.data() as Map<String, dynamic>;
+  factory Product.fromDoc(DocumentSnapshot doc) {
+    final Map<String, dynamic> map = doc.data() as Map<String, dynamic>;
 
     return Product(
-      id: snap.id,
+      id: doc.id,
       name: map['name'] ?? '',
       category: map['category'] ?? '',
-      description: snap['description'],
+      description: map['description'],
       imageUrl: map['imageUrl'] ?? '',
       price: map['price']?.toDouble() ?? 0.0,
       quantity: map['quantity']?.toInt() ?? 0,

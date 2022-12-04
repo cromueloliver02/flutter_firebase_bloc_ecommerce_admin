@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../models/models.dart';
+import '../controllers/order_controller.dart';
 
 class OrdersPage extends StatelessWidget {
   static const id = '/orders';
 
-  const OrdersPage({super.key});
+  OrdersPage({super.key});
+
+  final OrderController orderController = Get.put(OrderController());
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +22,12 @@ class OrdersPage extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: Order.orders.length,
-              itemBuilder: (ctx, idx) => OrderCard(
-                order: Order.orders[idx],
+            child: Obx(
+              () => ListView.builder(
+                itemCount: orderController.pendingOrders.length,
+                itemBuilder: (ctx, idx) => OrderCard(
+                  order: orderController.pendingOrders[idx],
+                ),
               ),
             ),
           )
@@ -32,12 +38,25 @@ class OrdersPage extends StatelessWidget {
 }
 
 class OrderCard extends StatelessWidget {
-  const OrderCard({
+  OrderCard({
     super.key,
     required this.order,
   });
 
   final Order order;
+  final OrderController orderController = Get.find();
+
+  void _acceptOrder() {
+    orderController.updateOrder(order, 'isAccepted', !order.isAccepted);
+  }
+
+  void _deliverOrder() {
+    orderController.updateOrder(order, 'isDelivered', !order.isDelivered);
+  }
+
+  void _cancelOrder() {
+    orderController.updateOrder(order, 'isCancelled', !order.isCancelled);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +189,7 @@ class OrderCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: _cancelOrder,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,
                       minimumSize: const Size(150, 40),
@@ -180,16 +199,28 @@ class OrderCard extends StatelessWidget {
                       style: TextStyle(fontSize: 12),
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
-                        minimumSize: const Size(150, 40)),
-                    child: const Text(
-                      'Accept',
-                      style: TextStyle(fontSize: 12),
+                  if (!order.isAccepted)
+                    ElevatedButton(
+                      onPressed: _acceptOrder,
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          minimumSize: const Size(150, 40)),
+                      child: const Text(
+                        'Accept',
+                        style: TextStyle(fontSize: 12),
+                      ),
                     ),
-                  ),
+                  if (order.isAccepted)
+                    ElevatedButton(
+                      onPressed: _deliverOrder,
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          minimumSize: const Size(150, 40)),
+                      child: const Text(
+                        'Deliver',
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    ),
                 ],
               ),
             ],
