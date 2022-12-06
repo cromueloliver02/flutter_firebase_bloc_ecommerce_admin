@@ -78,6 +78,8 @@ class _AddProductPageState extends State<AddProductPage> {
 
   @override
   Widget build(BuildContext context) {
+    final categories = ['Soft Drinks', 'Water', 'Smoothies'];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Product'),
@@ -132,10 +134,21 @@ class _AddProductPageState extends State<AddProductPage> {
                 name: 'description',
                 productController: productController,
               ),
-              ProductTextField(
-                hintText: 'Product Category',
-                name: 'category',
-                productController: productController,
+              DropdownButtonFormField(
+                decoration: const InputDecoration(hintText: 'Product Category'),
+                items: categories
+                    .map((d) => DropdownMenuItem(
+                          value: d,
+                          child: Text(d),
+                        ))
+                    .toList(),
+                onChanged: (value) {
+                  productController.newProduct.update(
+                    'category',
+                    (_) => value,
+                    ifAbsent: () => value,
+                  );
+                },
               ),
               const SizedBox(height: 10),
               AddNewProductSlider(
